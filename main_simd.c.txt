@@ -1,0 +1,97 @@
+#ifdef __MMX__
+#include <mmintrin.h>
+#endif
+#ifdef __SSE__
+#include <xmmintrin>
+#endif
+
+#ifdef __SSE2__
+#include <emmintrin>
+#endif
+
+#ifdef __SSE3__
+#include <pmmintrin>
+#endif; 
+#ifdef __SSSE3__
+#include <tmmintrin.h>
+#endif
+
+#if defined (__SSE4_2__) || defined (__SSE4_1__)
+#include <smmintrin>
+#endif
+
+#include <malloc.h>
+
+#include<time.h>   
+
+
+#include <stdio.h>
+
+main()
+{
+
+	time_t t1,t2;
+	
+	unsigned int dim;
+
+
+float *pinput; 
+float *poutput; 
+float *pi,*po,*pend;
+int i;
+
+
+
+
+
+dim= 1024*1024*64;
+pinput= (float*)_aligned_malloc(dim*sizeof(float),16);
+poutput = (float*)_aligned_malloc(dim*sizeof(float),16);
+pi = pinput;
+pend = pi+dim;
+po = poutput;
+t1=clock(); // get time
+__asm {
+	// esi punta all'input
+	mov	esi,dword ptr [pi] // ecx punta alla fine dell'input
+	mov ecx,  [dim]
+	
+	shl	ecx,2 		// moltiplica per sizeof(float)
+		add	ecx,esi
+	// edi punta alla fine
+	mov	edi,dword ptr [po]
+
+_loop:	movaps		xmm0,xmmword ptr [esi]
+	movaps		xmmword ptr [edi],xmm0
+	add		esi,10h		// incrementa di 16 byte
+	add		edi,10h		// incrementa di 16 byte
+	cmp		esi,ecx
+	jne		_loop
+}
+
+t2=clock(); // get final time
+printf("%d\n", t2-t1 );
+
+t2=clock(); // get final time
+//for (i=0; i<dim;i++)
+//{
+//poutput[i]=pinput[i];
+//}
+
+pi = pinput;
+pend = pi+dim;
+po = poutput;
+while (pi!=pend)
+	*po++ = *pi++;
+
+
+t1=clock(); // get final time
+printf("%d", t1-t2 );
+
+
+
+
+getchar();
+}
+
+
