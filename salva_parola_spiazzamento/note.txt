@@ -1,0 +1,12 @@
+1) Realizzare una subroutine che determini la lunghezza di una stringa;
+
+2) Realizzare una routine che effettui la copia di una stringa (non copiare il terminatore);
+
+3) Realizzare una subroutine che dati due puntatori a stringa *src, *dst:
+
+   ricerchi in stringa src la stringa dst 
+ 
+   La subroutine ritorna la posizione di dst all'interno di src. Se la ricerca non
+   ha successo ritorna -1.
+
+3) Procedere nella risoluzine del problema utilizzando le subroutines sopra indicate.

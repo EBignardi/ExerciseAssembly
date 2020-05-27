@@ -1,0 +1,12 @@
+1) Realizzare progetto come main indicato;
+   Realizzare funzione assembly che estrae i parametri dallo stack e non fa nulla d'altro;
+
+2) Realizzare una subroutine in grado di determinare se un numero è primo. La subroutine
+   si aspetta il numero in bl e ritorna: 
+	ax  = 0 se bl non è primo 
+	ax != 0 se bl non è primo
+
+   verificare il corretto funzionamento della subroitine  chiamandola dalla funzione assembly 
+   facendola operare sul primo elemento dell'array src;
+
+3) Completare l'esercizio come richiesto dalle specfiche del testo
